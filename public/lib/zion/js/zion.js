@@ -263,3 +263,37 @@ $(document).on("submit",".ajaxform",function(e){
     
     return false;
 });
+
+/**
+ * No evento click, chama uma URL usando ajax e
+ * chama a função de callback para tratar a resposta
+ * @returns
+ */
+$(document).on("click",".ajaxlink",function(){
+	var self     = $(this);
+	var url      = self.attr("data-url");
+	var method   = self.attr("data-method");
+	var callback = self.attr("data-callback");
+	
+	if(method == ""){
+		method = "GET";
+	}
+	
+	$.ajax({
+		url: url,
+		method: method,
+		cache: false
+	}).done(function(a,b,c,d){
+		self.notify(c.responseText,"success");
+		
+		try {
+			eval(callback+"();");
+		}catch(e){}
+	}).fail(function(a,b,c,d){
+		self.notify(a.responseText,"error");
+		
+		try {
+			eval(callback+"();");
+		}catch(e){}
+	});
+});
