@@ -1,0 +1,21 @@
+#zion-loading {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    
+    display: none;
+	cursor: wait;
+	
+	background-image: url(/lib/zion/img/loader1.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+	
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: alpha(opacity=30);
+	-moz-opacity:0.3;
+	-khtml-opacity: 0.3;
+    opacity: 0.3;
+}
