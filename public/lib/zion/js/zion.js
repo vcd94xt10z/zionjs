@@ -14,6 +14,60 @@ $(document).ready(function(){
 });
 
 /**
+ * Seta um cookie
+ * @param name
+ * @param value
+ * @param days
+ * @returns
+ */
+function setCookie(name, value, days) {
+	var d       = null;    
+	var expires = 0;
+	
+	if(days > 0){
+		d = new Date();
+    	d.setTime(d.getTime() + 24*60*60*1000*days);
+		expires = d.toGMTString();
+    }
+
+    document.cookie = name + "=" + value + ";path=/;expires=" + expires;
+}
+
+/**
+ * Retorna o valor do cookie
+ * @param name
+ * @returns
+ */
+function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+}
+
+/**
+ * Deleta um cookie
+ * @param name
+ * @returns
+ */
+function deleteCookie(name) {
+	if(getCookie(name) != null){
+		setCookie(name, '', -1);
+	}
+}
+
+/**
+ * Copia um texto para a área de transferência
+ * @param text
+ * @returns
+ */
+function copyToClipboard(text) {
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val(text).select();
+	document.execCommand("copy");
+	$temp.remove();
+}
+
+/**
  * Exibe uma layer bloqueando a UI e exibindo uma gif para representar
  * que algo esta processando e que é necessário esperar
  * @returns
