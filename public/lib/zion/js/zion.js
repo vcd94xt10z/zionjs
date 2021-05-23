@@ -270,30 +270,37 @@ $(document).on("submit",".ajaxform",function(e){
  * @returns
  */
 $(document).on("click",".ajaxlink",function(){
-	var self     = $(this);
-	var url      = self.attr("data-url");
-	var method   = self.attr("data-method");
-	var callback = self.attr("data-callback");
+	var self       = $(this);
+	var url        = self.attr("data-url");
+	var method     = self.attr("data-method");
+	var callback   = self.attr("data-callback");
+	var confirmMsg = self.attr("data-confirmMessage");
 	
 	if(method == ""){
 		method = "GET";
+	}
+	
+	if(confirmMsg != null){
+		if(!window.confirm(confirmMsg)){
+			return;
+		}
 	}
 	
 	$.ajax({
 		url: url,
 		method: method,
 		cache: false
-	}).done(function(a,b,c,d){
-		self.notify(c.responseText,"success");
-		
+	}).done(function(responseBody,statusText,responseObj){
 		try {
-			eval(callback+"();");
-		}catch(e){}
-	}).fail(function(a,b,c,d){
-		self.notify(a.responseText,"error");
-		
+			eval(callback+"('done',responseBody,statusText,responseObj);");
+		}catch(e){
+			console.log(e);
+		}
+	}).fail(function(responseBody,statusText,responseObj){
 		try {
-			eval(callback+"();");
-		}catch(e){}
+			eval(callback+"('fail',type,responseBody,statusText,responseObj);");
+		}catch(e){
+			console.log(e);
+		}
 	});
 });
