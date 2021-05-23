@@ -235,28 +235,29 @@ $(document).on("submit",".ajaxform",function(e){
       cache: false,
       processData: false,
       contentType: false
-    }).done(function(responseBody,statusText,responseObj) {
+    }).done(function(data, textStatus, jqXHR) {
     	ajaxFormRunning = false;
     	
     	// callback
     	for(var i in callbackList){
     		var func = callbackList[i];
     		try {
-    			eval(func+"('done',responseBody,statusText,responseObj);");
+    			eval(func+"('done',jqXHR,data,textStatus,null);");
     		}catch(e){
-    			console.log("Função "+func+" não encontrada, crie a função com a assinatura: function "+func+"(type,responseBody,statusText,responseObj){}");
+    			console.log("Função "+func+" não encontrada, crie a função com a assinatura: function "+func+"(type,xhr,responseBody,textStatus,err){}");
     		}
     	}
-    }).fail(function(responseObj,statusText,responseBody) {
+    }).fail(function(jqXHR, textStatus, errorThrown) {
     	ajaxFormRunning = false;
     	
     	// callback
     	for(var i in callbackList){
     		var func = callbackList[i];
     		try {
-    			eval(func+"('fail',responseBody,statusText,responseObj);");
+				var responseBody = jqXHR.responseText;
+    			eval(func+"('fail',jqXHR,responseBody,textStatus,errorThrown);");
     		}catch(e){
-    			console.log("Função "+func+" não encontrada, crie a função com a assinatura: "+func+"(type,responseBody,statusText,responseObj)");
+    			console.log("Função "+func+" não encontrada, crie a função com a assinatura: "+func+"(type,xhr,responseBody,textStatus,err)");
     		}
     	}
     });
@@ -290,15 +291,16 @@ $(document).on("click",".ajaxlink",function(){
 		url: url,
 		method: method,
 		cache: false
-	}).done(function(responseBody,statusText,responseObj){
+	}).done(function(data, textStatus, jqXHR){
 		try {
-			eval(callback+"('done',responseBody,statusText,responseObj);");
+			eval(callback+"('done',jqXHR,data,textStatus,null);");
 		}catch(e){
 			console.log(e);
 		}
-	}).fail(function(responseBody,statusText,responseObj){
+	}).fail(function(jqXHR, textStatus, errorThrown){
 		try {
-			eval(callback+"('fail',type,responseBody,statusText,responseObj);");
+			var responseBody = jqXHR.responseText;
+			eval(callback+"('fail',jqXHR,responseBody,textStatus,errorThrown);");
 		}catch(e){
 			console.log(e);
 		}
