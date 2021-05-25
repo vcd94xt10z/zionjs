@@ -126,6 +126,9 @@ function loadMask(){
     $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
     $('.money2').mask("#.##0,00", {reverse: true});
+	$('.money3').mask("#.##0,000", {reverse: true});
+	$('.double2').mask("##0,00", {reverse: true});
+	$('.double3').mask("##0,000", {reverse: true});
     $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
       translation: {
         'Z': {
@@ -244,6 +247,7 @@ $(document).on("submit",".ajaxform",function(e){
     		try {
     			eval(func+"('done',jqXHR,data,textStatus,null);");
     		}catch(e){
+				//console.log(e);
     			console.log("Função "+func+" não encontrada, crie a função com a assinatura: function "+func+"(type,xhr,responseBody,textStatus,err){}");
     		}
     	}
@@ -257,6 +261,7 @@ $(document).on("submit",".ajaxform",function(e){
 				var responseBody = jqXHR.responseText;
     			eval(func+"('fail',jqXHR,responseBody,textStatus,errorThrown);");
     		}catch(e){
+				//console.log(e);
     			console.log("Função "+func+" não encontrada, crie a função com a assinatura: "+func+"(type,xhr,responseBody,textStatus,err)");
     		}
     	}
@@ -295,14 +300,14 @@ $(document).on("click",".ajaxlink",function(){
 		try {
 			eval(callback+"('done',jqXHR,data,textStatus,null);");
 		}catch(e){
-			console.log(e);
+			//console.log(e);
 		}
 	}).fail(function(jqXHR, textStatus, errorThrown){
 		try {
 			var responseBody = jqXHR.responseText;
 			eval(callback+"('fail',jqXHR,responseBody,textStatus,errorThrown);");
 		}catch(e){
-			console.log(e);
+			//console.log(e);
 		}
 	});
 });
