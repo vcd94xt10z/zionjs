@@ -7,7 +7,11 @@ $(document).ready(function(){
 	    complete: function(){
 	    	stopLoading();
 	    },
-	    success: function(){}
+	    success: function(){
+	    },
+		error: function(jqXHR, textStatus, errorThrown) {
+        	stopLoading();
+    	}
 	});
 	
 	loadMask();
