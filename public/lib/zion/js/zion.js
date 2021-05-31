@@ -248,11 +248,11 @@ $(document).on("submit",".ajaxform",function(e){
     	// callback
     	for(var i in callbackList){
     		var func = callbackList[i];
+
     		try {
     			eval(func+"('done',jqXHR,data,textStatus,null);");
     		}catch(e){
-				//console.log(e);
-    			console.log("Função "+func+" não encontrada, crie a função com a assinatura: function "+func+"(type,xhr,responseBody,textStatus,err){}");
+				console.error(e);
     		}
     	}
     }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -261,12 +261,12 @@ $(document).on("submit",".ajaxform",function(e){
     	// callback
     	for(var i in callbackList){
     		var func = callbackList[i];
+
     		try {
 				var responseBody = jqXHR.responseText;
     			eval(func+"('fail',jqXHR,responseBody,textStatus,errorThrown);");
     		}catch(e){
-				//console.log(e);
-    			console.log("Função "+func+" não encontrada, crie a função com a assinatura: "+func+"(type,xhr,responseBody,textStatus,err)");
+				console.error(e);
     		}
     	}
     });
@@ -304,14 +304,14 @@ $(document).on("click",".ajaxlink",function(){
 		try {
 			eval(callback+"('done',jqXHR,data,textStatus,null);");
 		}catch(e){
-			//console.log(e);
+			console.error(e);
 		}
 	}).fail(function(jqXHR, textStatus, errorThrown){
 		try {
 			var responseBody = jqXHR.responseText;
 			eval(callback+"('fail',jqXHR,responseBody,textStatus,errorThrown);");
 		}catch(e){
-			//console.log(e);
+			console.error(e);
 		}
 	});
 });
