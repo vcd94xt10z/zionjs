@@ -174,6 +174,48 @@ function loadMask(){
     $('.type-time').attr("title","Formato h:m:s").tooltip();
 }
 
+$(document).on("keyup",".mask-money2",function(e){
+	var code = e.keyCode || e.which;
+	if(code == 9){
+		return false;
+	}
+	
+	var self = $(this);
+	var text = self.val();
+	
+	var number = 0;
+	try {
+		number = parseInt(text.replace(/[^0-9]/,""));
+	}catch(ex){
+	}
+	if(isNaN(number)){
+		number = 0;
+	}
+	
+	number = number / 100;
+	text = number.toFixed(2);
+	text = text.replace(".",",");
+	self.val(text);
+});
+
+$(document).on("keyup",".mask-double3",function(e){
+	var self = $(this);
+	var text = self.val();
+	
+	var number = 0;
+	try {
+		number = parseInt(text.replace(/[^0-9]/,""));
+	}catch(ex){
+	}
+	if(isNaN(number)){
+		number = 0;
+	}
+	
+	number = number / 1000;
+	text = number.toFixed(3);
+	self.val(text);
+});
+
 // upload de arquivos via ajax
 (function($) {
 $.fn.serializefiles = function() {
