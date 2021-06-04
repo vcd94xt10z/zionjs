@@ -144,6 +144,10 @@ zion.utils.TextFormatter.formatDate = function(date,format,timezone){
  * Formata um CEP
  */
 zion.utils.TextFormatter.formatCEP = function(value){
+	if(value == null){
+		return "";
+	}
+	
 	var value = value.toString();
 	return value.substr(0,5)+"-"+value.substr(5,3);
 };
