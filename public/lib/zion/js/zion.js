@@ -121,7 +121,7 @@ function loadMask(){
 	$('.date,.type-date').mask('00/00/0000');
     $('.time,.type-time').mask('00:00:00');
     $('.datetime,.type-datetime').mask('00/00/0000 00:00:00');
-    $('.cep').mask('00000-000');
+	$('.cep').mask('00000-000');
     $('.phone').mask('0000-0000');
     $('.phone_with_ddd').mask('(00) 0000-0000');
     $('.phone_us').mask('(000) 000-0000');
@@ -172,6 +172,9 @@ function loadMask(){
     
     $('.type-date').attr("title","Formato d/m/a").tooltip();
     $('.type-time').attr("title","Formato h:m:s").tooltip();
+
+	$('.card-number').mask('0000 0000 0000 0000');
+	$('.card-expiration').mask('00/0000');
 }
 
 $(document).on("keyup",".mask-money2",function(e){
