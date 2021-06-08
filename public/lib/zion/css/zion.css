@@ -12,6 +12,7 @@
 	background-image: url(/lib/zion/img/loader1.gif);
 	background-position: center center;
 	background-repeat: no-repeat;
+	background-color: #ccc;
 	
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
 	filter: alpha(opacity=30);
