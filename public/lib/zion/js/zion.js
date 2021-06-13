@@ -1,3 +1,5 @@
+var ajaxFormRunning = false;
+
 $(document).ready(function(){
 	// bloqueando UI
     jQuery.ajaxSetup({
