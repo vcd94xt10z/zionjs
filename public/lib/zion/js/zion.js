@@ -1,4 +1,5 @@
 var ajaxFormRunning = false;
+var ajaxBlockUI = true;
 
 $(document).ready(function(){
 	// bloqueando UI
@@ -79,6 +80,10 @@ function copyToClipboard(text) {
  * @returns
  */
 function startLoading(){
+	if(!ajaxBlockUI){
+		return;
+	}
+	
 	if(!$("#zion-loading").length){
 		var code = "<div id='zion-loading'></div>";
 		$("body").append(code);
@@ -91,6 +96,10 @@ function startLoading(){
 * @returns
 */
 function stopLoading(){
+	if(!ajaxBlockUI){
+		return;
+	}
+	
 	$("#zion-loading").css("display","none");
 }
 

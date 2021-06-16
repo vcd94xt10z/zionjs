@@ -1,0 +1,3 @@
+https://jscompress.com/
+
+Use o site acima para minificar todos os arquivos da pasta libsrc e gerar um arquivo apenas, o zion.lib.js
