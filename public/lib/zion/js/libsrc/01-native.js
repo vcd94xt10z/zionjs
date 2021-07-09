@@ -4,6 +4,94 @@ var zion = {
 	utils: {}
 };
 
+function trim (s, c) {
+	if (c === "]") c = "\\]";
+	if (c === "^") c = "\\^";
+	if (c === "\\") c = "\\\\";
+	return s.replace(new RegExp(
+	  "^[" + c + "]+|[" + c + "]+$", "g"
+	), "");
+}
+
+/**
+ * Seta um cookie
+ * @param name
+ * @param value
+ * @param days
+ * @returns
+ */
+function setCookie(name, value, days) {
+	var d       = null;    
+	var expires = 0;
+	
+	if(days > 0){
+		d = new Date();
+    	d.setTime(d.getTime() + 24*60*60*1000*days);
+		expires = d.toGMTString();
+    }
+
+    document.cookie = name + "=" + value + ";path=/;expires=" + expires;
+}
+
+/**
+ * Retorna o valor do cookie
+ * @param name
+ * @returns
+ */
+function getCookie(name) {
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+}
+
+/**
+ * Deleta um cookie
+ * @param name
+ * @returns
+ */
+function deleteCookie(name) {
+	if(getCookie(name) != null){
+		setCookie(name, '', -1);
+	}
+}
+
+/**
+ * Copia um texto para a área de transferência
+ * @param text
+ * @returns
+ */
+function copyToClipboard(text) {
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val(text).select();
+	document.execCommand("copy");
+	$temp.remove();
+}
+
+/**
+ * Gera um identificador único universal
+ * @returns string
+ */
+ function uuidv4() {
+	return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+		(c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+	)
+}
+
+/**
+ * Verifica se a variável não é undefined, nula ou string vazia
+ * @param data
+ * @returns boolean
+ */
+function isEmpty(data){
+	try {
+		if(data == undefined || data == null || data == ""){
+			return true;
+		}
+	}catch(e){
+		return false;
+	}
+}
+
 /**
  * Só colocar aqui extensões de classes javascript nativas como adicionar
  * um método estático ou de instância a uma classe, atributos etc
